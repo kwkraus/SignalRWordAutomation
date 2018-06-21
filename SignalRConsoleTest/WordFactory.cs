@@ -272,7 +272,7 @@ namespace SignalRConsoleTest
                 switch (ex.HResult)
                 {
                     case -2146824128:
-                        msg = string.Format("Can't open document {0}: Please check to see if dialog window is open", docUri);
+                        msg = $"Can't open document {docUri}: Please check to see if dialog window is open";
                         break;
 
                     default:
@@ -307,7 +307,7 @@ namespace SignalRConsoleTest
                     doc.Close(WdSaveOptions.wdDoNotSaveChanges);
 
                     context.Clients.All.addMessage("CloseDocument", "Word closed doc " + fullName);
-                    Console.WriteLine(string.Format("CloseDocument: Doc {0} was closed", fullName));
+                    Console.WriteLine($"CloseDocument: Doc {fullName} was closed");
 
                     if (WordApp.Documents.Count == 0)
                     {
@@ -318,7 +318,7 @@ namespace SignalRConsoleTest
             }
             catch (Exception)
             {
-                string message = string.Format("CloseDocument: Can't close document {0}, please check for open dialog box", docUri);
+                string message = $"CloseDocument: Can't close document {docUri}, please check for open dialog box";
 
                 context.Clients.All.addMessage(message);
                 Console.WriteLine(message);
@@ -328,7 +328,7 @@ namespace SignalRConsoleTest
         private static void Wordinstance_DocumentBeforeClose(Document Doc, ref bool Cancel)
         {
             context.Clients.All.addMessage("DocumentBeforeClose", "Word closing doc " + Doc.FullName);
-            Console.WriteLine(string.Format("DocumentBeforeClose: Doc {0} is closing", Doc.FullName));
+            Console.WriteLine($"DocumentBeforeClose: Doc {Doc.FullName} is closing");
         }
 
         public static void CloseWord()
@@ -363,8 +363,7 @@ namespace SignalRConsoleTest
                             break;
 
                         default:  //this is to catch the unknown and bubble up the details
-                            context.Clients.All.addMessage(
-                                string.Format("CloseWord", "Oops... Something went wrong  Code {0}  Message: {1}", ex.HResult, ex.Message));
+                            context.Clients.All.addMessage("CloseWord", $"Oops... Something went wrong  Code {ex.HResult}  Message: {ex.Message}");
                             return;
 
                     }
@@ -373,7 +372,7 @@ namespace SignalRConsoleTest
 
             WordApp = null;
             context.Clients.All.addMessage("CloseWord", result);
-            Console.WriteLine(string.Format("CloseWord: " + result));
+            Console.WriteLine($"CloseWord: {result}");
 
         }
     }

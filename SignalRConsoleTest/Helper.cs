@@ -35,7 +35,7 @@ namespace SignalRConsoleTest
             }
             catch (Exception ex)
             {
-                throw new ApplicationException(string.Format("File {0} was not found", filePath), ex);
+                throw new ApplicationException($"File {filePath} was not found", ex);
             }
 
             return encodedData;

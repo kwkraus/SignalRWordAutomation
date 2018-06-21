@@ -10,7 +10,7 @@ namespace SignalRConsoleTest
         {
             string docName = WordFactory.OpenDocument(docUri, docId);
             Clients.Caller.addMessage("server_" + Context.ConnectionId, "Word opened doc " + docName);
-            Console.WriteLine(string.Format("Doc {0} was opened", docName));
+            Console.WriteLine($"Doc {docName} was opened");
         }
 
         public void CloseDoc(string docUri)
@@ -18,14 +18,14 @@ namespace SignalRConsoleTest
             //add code here to close the specific doc/app instance with docUri and notify the group of the closure
             WordFactory.CloseDocument(docUri);
             Clients.All.docClosed();
-            Console.WriteLine(string.Format("Doc {0} was closed", docUri));
+            Console.WriteLine($"Doc {docUri} was closed");
         }
 
         public void CloseWord()
         {
             WordFactory.CloseWord();
             Clients.All.docClosed();
-            Console.WriteLine(string.Format("Connection: {0} {1}", Context.ConnectionId, "Word was closed"));
+            Console.WriteLine($"Connection: {Context.ConnectionId} Word was closed");
         }
 
         public void FocusDocPInoke(string docUri)
