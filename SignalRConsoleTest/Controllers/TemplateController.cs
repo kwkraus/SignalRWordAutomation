@@ -51,9 +51,8 @@ namespace SignalRConsoleTest.Controllers
                     }
                 }
             }
-            //return Json<List<string>>(templateList);
-            return Ok(templateList);
 
+            return Ok(templateList);
         }
 
         [EnableCors(origins: "*", headers: "*", methods: "*")]
@@ -120,7 +119,6 @@ namespace SignalRConsoleTest.Controllers
         [ActionName("Upload")]
         public IHttpActionResult Upload(List<string> templatesToUpload)
         {
-
             StringBuilder query = new StringBuilder();
             query.Append("SELECT s.scenName, s.scenType, sfp.Sequence, sfp.Name ");
             query.Append("FROM Scenarios s INNER JOIN ScenarioFormParagraphs sfp ON s.scenID = sfp.scenID ");
@@ -128,7 +126,6 @@ namespace SignalRConsoleTest.Controllers
             //string queryString = "SELECT s.scenName, s.scenType, sfp.Sequence, sfp.Name FROM Scenarios s INNER JOIN ScenarioFormParagraphs sfp ON s.scenID = sfp.scenID";
             //string queryString = "SELECT * FROM Scenarios";
             string queryString = query.ToString();
-
 
             return Ok();
         }

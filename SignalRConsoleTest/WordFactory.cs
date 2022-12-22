@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Office.Interop.Word;
-using Microsoft.AspNet.SignalR;
-using System.Runtime.InteropServices;
 using SignalRConsoleTest.Wrappers;
+using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace SignalRConsoleTest
@@ -103,7 +103,7 @@ namespace SignalRConsoleTest
         static extern bool ShowWindow(IntPtr hWnd, ShowWindowCommands nCmdShow);
 
         private static Application WordApp = null;
-        private static IHubContext context = GlobalHost.ConnectionManager.GetHubContext<WordHub>();
+        private static readonly IHubContext context = GlobalHost.ConnectionManager.GetHubContext<WordHub>();
 
         public static void CreateInstance()
         {
@@ -112,9 +112,9 @@ namespace SignalRConsoleTest
                 Application wordinstance;
                 try
                 {
-                    wordinstance = (Application)System.Runtime.InteropServices.Marshal.GetActiveObject("Word.Application");
+                    wordinstance = (Application)Marshal.GetActiveObject("Word.Application");
                 }
-                catch (System.Runtime.InteropServices.COMException)
+                catch (COMException)
                 {
                     wordinstance = new Application();
                 }
@@ -128,10 +128,8 @@ namespace SignalRConsoleTest
                 WordApp = wordinstance;
 
                 context.Clients.All.addMessage("CreateInstance", "New Word Instance created");
-
             }
         }
-
 
         /// <summary>
         /// Function uses Pinvoke method to bring window up front
@@ -153,9 +151,6 @@ namespace SignalRConsoleTest
 
                 for (;;)
                 {
-                    //bool result = AllowSetForegroundWindow(currentProc.Id);
-                    //Console.WriteLine($"AllowSetForegroundWindow returned with {result.ToString()}");
-
                     //we need restore window from minimized state
                     bool showResult = ShowWindow(docHandle, ShowWindowCommands.Restore);
                     Console.WriteLine($"ShowWindow returned with {showResult.ToString()}");
@@ -181,9 +176,7 @@ namespace SignalRConsoleTest
             }
 
             return false;
-
         }
-
 
         /// <summary>
         /// Function uses Word app to activate word window.
@@ -204,6 +197,7 @@ namespace SignalRConsoleTest
                     WordApp.Activate();
                 }
             }
+
             return false;
         }
 
@@ -216,11 +210,6 @@ namespace SignalRConsoleTest
                 context.Clients.All.addMessage("QuitHandler", "Word closed");
                 Console.WriteLine("QuitHandler: Word closed");
             }
-        }
-
-        private static void CloseEventHandler()
-        {
-            Console.WriteLine("CloseEventHandler: Document Closed");
         }
 
         public static string OpenDocument(string docUri, string docId)
@@ -373,8 +362,6 @@ namespace SignalRConsoleTest
             WordApp = null;
             context.Clients.All.addMessage("CloseWord", result);
             Console.WriteLine($"CloseWord: {result}");
-
         }
     }
-
 }

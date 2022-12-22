@@ -22,7 +22,6 @@ namespace SignalRConsoleTest.Controllers
         public IHttpActionResult GetWordIds(string id)
         {
             return Ok(id);
-
         }
     }
 }

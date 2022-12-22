@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Owin;
-using Owin;
+﻿using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Owin;
 using System.Web.Http;
 
 [assembly: OwinStartup(typeof(SignalRConsoleTest.Startup))]

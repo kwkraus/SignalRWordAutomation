@@ -1,9 +1,5 @@
-﻿using System;
-using Microsoft.AspNet.SignalR;
-using Microsoft.Owin.Hosting;
-using Owin;
-using Microsoft.Owin.Cors;
-using SignalRConsoleTest;
+﻿using Microsoft.Owin.Hosting;
+using System;
 
 namespace SignalRSelfHost
 {

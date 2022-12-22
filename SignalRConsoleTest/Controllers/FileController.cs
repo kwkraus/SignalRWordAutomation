@@ -30,7 +30,7 @@ namespace SignalRConsoleTest.Controllers
                 {
                     string[] filePathParts = filePath.Split('\\');
                     string fileName = filePathParts[filePathParts.GetUpperBound(0)].ToString();
-                    
+
                     string encodedData = Helper.GetBase64StringFromPath(filePath);
 
                     double noOfSeconds = DateTime.UtcNow.Subtract(Convert.ToDateTime("1/1/1970 00:00:00")).TotalSeconds;
